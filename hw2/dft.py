@@ -10,7 +10,11 @@ def init():
 	expos = lookups[0]
 	logs = lookups[1]
 	inverse = lookups[2]
-	print generate255(expos)
+	fullTransform = generate255(expos)
+	#print generateTransform(7, fullTransform)
+
+	message = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+	print generateMessage(10, 20, message)
 
 def generate255(expos):
 	t = np.empty([255,255])
@@ -20,5 +24,13 @@ def generate255(expos):
 			t[r,c] = expos[(c*r)%255]
 	return t
 
-#def generateTransform(n):
+def generateTransform(n, t):
+	return t[:n,:n]
+
+def generateMessage(k, n, message):
+	m = np.zeros((n,1))
+	for idx, x in enumerate(message):
+		m[idx,0] = x
+	return m
+
 init()
