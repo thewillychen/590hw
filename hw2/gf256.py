@@ -2,26 +2,26 @@ import numpy as np
 import operators
 import dft
 
-def generate28(k, rows):
+def generate256(k, rows):
 	full = dft.generate255(operators.generateExponentials())
 	t = np.array([]).reshape(0,255)
 	for row in rows:
 		t = np.vstack((t, full[row]))
 	return t[:k,:k]	
 
-def multiply28(a,b):
+def multiply256(a,b):
 	expos = operators.generateExponentials()
 	logs = operators.generateLogarithms()
 	return operators.multiply(int(a),int(b),expos,logs)
 
-def inverse28(a):
+def inverse256(a):
 	inv = operators.generateInverses()
 	return operators.inverse(int(a),inv)
 
-def add28(a,b):
+def add256(a,b):
 	return operators.add(int(a),int(b))
 
-def gauss28(A):
+def gauss256(A):
 	n = len(A)
 
 	for i in range(0, n):# Search for maximum in this column
@@ -40,21 +40,21 @@ def gauss28(A):
 
 		# Make all rows below this one 0 in current column
 		for k in range(i+1, n):
-			c = multiply28(A[k][i],inverse28(A[i][i]))
+			c = multiply256(A[k][i],inverse256(A[i][i]))
 			#c = -A[k][i]/A[i][i]
 			for j in range(i, n+1):
 				if i == j:
 					A[k][j] = 0
 				else:
-					A[k][j] = add28(A[k][j], multiply28(c, A[i][j]))
+					A[k][j] = add256(A[k][j], multiply256(c, A[i][j]))
 					#A[k][j] += c * A[i][j]
 
 	# Solve equation Ax=b for an upper triangular matrix A
 	x = [0 for i in range(n)]
 	for i in range(n-1, -1, -1):
-		x[i] = multiply28(A[i][n], inverse28(A[i][i]))
+		x[i] = multiply256(A[i][n], inverse256(A[i][i]))
 		# x[i] = A[i][n]/A[i][i]
 		for k in range(i-1, -1, -1):
-			A[k][n] = add28(A[k][n], multiply28(A[k][i],x[i]))
+			A[k][n] = add256(A[k][n], multiply256(A[k][i],x[i]))
 			# A[k][n] -= A[k][i] * x[i]
 	return x

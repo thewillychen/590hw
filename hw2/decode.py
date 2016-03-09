@@ -1,5 +1,6 @@
 import numpy as np
-import gf28
+import gf256
+import gf257
 
 def getCodewords(k, codewords):
 	c = codewords
@@ -15,30 +16,19 @@ def getCodewords(k, codewords):
 			idx += 1
 	return kcol, rows
 
-def generate257(k, rows):
-	full = np.empty([256,256])
-	full.fill(1)
-	for r in range(1,256): #should go from 1 to 254 for 255 elements in each row 0,254
-		for c in range(1,256):
-			full[r,c] = (3**((c*r)%257))%257
-	t = np.array([]).reshape(0,256)
-	for row in rows:
-		t = np.vstack((t, full[row]))
-	return t[:k,:k]	
-
 def decode(k, codewords, gf):
 	a = getCodewords(k, codewords)
 	c = a[0]
 	rows = a[1]
 	#print c
 	if gf == 256:
-		t = gf28.generate28(k, rows)
+		t = gf256.generate256(k, rows)
 	else:
 		t = generate257(k, rows)
 	#print t
 	array = np.concatenate((t,c), axis=1)
 	#print array
-	return gf28.gauss28(array)
+	return gf256.gauss256(array)
 
 if __name__ == '__main__':
 	code1 = [0, 180, 253, 87, 23, 236, 165, 202, 14, 244, 13, 93, 231, 54, 117, 97, 84, 225, 86, 51]
@@ -49,6 +39,6 @@ if __name__ == '__main__':
 	k2 = 10
 	print decode(k2,code2,256)
 
-	code3 = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 233, -1, 8, 135, 81, 196, 212, 33, 109, 63, 38, 226, 217, 19, 108, 89, 96, 27, 51, 207, 198, 215, 250, 82, 105, 189, 231, 185, 202, 186, 196, 128, 232, 201, 33, 102, 227, 201, 96, 180, 101, 246, 53, 118, 138, 239, 143, 252, 131, 121, 242, 180, 91, 234, 148, 3, 191, 95, 133, 4, 135, 90, 176, 103, 135, 226, 134, 226, 3, 8, 68, 173, 1, 4, 221, 154, 160, 185, 231, 44, 83, 250, 239, 187, 48, 140, 24, 19, 198, 157]	
+	code3 = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 233, -1, 8, 135, 81, 196, 212, 33, 109, 63, 38, 226, 217, 19, 108, 89, 96, 27, 51, 207, 198, 215, 250, 82, 105, 189, 231, 185, 202, 186, 196, 1256, 232, 201, 33, 102, 227, 201, 96, 180, 101, 246, 53, 118, 138, 239, 143, 252, 131, 121, 242, 180, 91, 234, 148, 3, 191, 95, 133, 4, 135, 90, 176, 103, 135, 226, 134, 226, 3, 8, 68, 173, 1, 4, 221, 154, 160, 185, 231, 44, 83, 250, 239, 187, 48, 140, 24, 19, 198, 157]	
 	k3 = 26
 	print decode(k3,code3,256)
