@@ -16,7 +16,7 @@ def getCodewords(k, codewords):
 			idx += 1
 	return kcol, rows
 
-def generate257(k):
+def generate257(k, rows):
 	t = np.empty([256,256])
 	t.fill(1)
 	for r in range(1,256): #should go from 1 to 254 for 255 elements in each row 0,254
@@ -24,20 +24,22 @@ def generate257(k):
 			t[r,c] = (3**((c*r)%257))%257
 	return t[:k,:k]
 
+def generate28(k, rows):
+	full = dft.generate255(operators.generateExponentials())
+	t = np.array([]).reshape(0,255)
+	for row in rows:
+		t = np.vstack((t, full[row]))
+	return t[:k,:k]	
+
 def decode(k, codewords, gf):
 	a = getCodewords(k, codewords)
 	c = a[0]
 	rows = a[1]
 	#print c
 	if gf == 256:
-		full = dft.generate255(operators.generateExponentials())
-		print full.shape
-		t = np.array([]).reshape(0,255)
-		for row in rows:
-			t = np.vstack((t, full[row]))
-		t=t[:k,:k]
+		t = generate28(k, rows)
 	else:
-		t = generate257(k)
+		t = generate257(k, rows)
 	#print t
 	array = np.concatenate((t,c), axis=1)
 	#print array
