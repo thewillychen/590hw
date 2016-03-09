@@ -11,7 +11,6 @@ def init():
 	logs = lookups[1]
 	inverse = lookups[2]
 	fullTransform = generate255(expos)
-	#message = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 	input1 = (10,20,[1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
 	print dft(input1[0],input1[1],input1[2],fullTransform, expos, logs) 
 

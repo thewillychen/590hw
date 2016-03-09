@@ -5,17 +5,8 @@
 from binascii import unhexlify, hexlify
 ##Add a and b in GF(2^8)
 def add(a, b):
-		# bits = [0]*8
-		# print a
-		# for i in range(0,8):
-		# 	print a&i
-		# 	# print a&i, b&i
-		# 	# print a&i ^ b&i
-		# 	# bits[i] = a&i ^ b&i
-		# #print bits
 	return a^b
-	#return hexlify(''.join(chr(ord(c1) ^ ord(c2)) for c1, c2 in zip(unhexlify(a[-len(b):]), unhexlify(b))))
-
+	
 #generate tables
 def generateExponentials():
 	#Returns a bytearray of the exponentials lookup table
