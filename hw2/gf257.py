@@ -11,16 +11,36 @@ def generate257(k, rows):
 		t = np.vstack((t, full[row]))
 	return t[:k,:k]	
 
+def egcd(a, b):
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        g, y, x = egcd(b % a, a)
+        return (g, x - (b // a) * y, y)
+
+def modinv(a, m):
+    g, x, y = egcd(a, m)
+    if g != 1:
+        raise Exception('modular inverse does not exist')
+    else:
+        return x % m
+
 def multiply(a,b):
-	return (a+b)%257
+	return (a*b)%257
 
 def inverse(a): #Need to do this function
-	return operators.inverse(int(a),inv)
+	return modinv(a,257)
 
 def add(a,b):
 	return (a+b)%257
 
-def gauss256(A):
+def minus(a,b):
+	c = (a-b)%257
+	if c >= 0:
+		return c
+	return (257+c)%257
+
+def gauss257(A):
 	n = len(A)
 
 	for i in range(0, n):# Search for maximum in this column
@@ -45,7 +65,7 @@ def gauss256(A):
 				if i == j:
 					A[k][j] = 0
 				else:
-					A[k][j] = add(A[k][j], multiply(c, A[i][j]))
+					A[k][j] = minus(A[k][j], multiply(c, A[i][j]))
 					#A[k][j] += c * A[i][j]
 
 	# Solve equation Ax=b for an upper triangular matrix A
@@ -54,6 +74,6 @@ def gauss256(A):
 		x[i] = multiply(A[i][n], inverse(A[i][i]))
 		# x[i] = A[i][n]/A[i][i]
 		for k in range(i-1, -1, -1):
-			A[k][n] = add(A[k][n], multiply(A[k][i],x[i]))
+			A[k][n] = minus(A[k][n], multiply(A[k][i],x[i]))
 			# A[k][n] -= A[k][i] * x[i]
 	return x
