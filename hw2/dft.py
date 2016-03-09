@@ -5,7 +5,7 @@ import sys
 import operators
 import numpy as np
 
-def init():
+if __name__ == '__main__':
 	lookups = operators.generateTables()
 	expos = lookups[0]
 	logs = lookups[1]
@@ -48,5 +48,3 @@ def dft(k,n, message, fullTable, expos, logs):
 			rowSum = operators.add(rowSum, product)
 		code[row,0] = rowSum
 	return code
-
-init()

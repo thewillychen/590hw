@@ -6,7 +6,7 @@ from binascii import unhexlify, hexlify
 ##Add a and b in GF(2^8)
 def add(a, b):
 	return a^b
-	
+
 #generate tables
 def generateExponentials():
 	#Returns a bytearray of the exponentials lookup table
@@ -54,5 +54,3 @@ def tests():
 
 	a = int('0x6b',0)
 	print hex(inverse(a, i))
-
-tests()
