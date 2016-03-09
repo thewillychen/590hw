@@ -5,7 +5,16 @@
 from binascii import unhexlify, hexlify
 ##Add a and b in GF(2^8)
 def add(a, b):
-	return hexlify(''.join(chr(ord(c1) ^ ord(c2)) for c1, c2 in zip(unhexlify(a[-len(b):]), unhexlify(b))))
+		# bits = [0]*8
+		# print a
+		# for i in range(0,8):
+		# 	print a&i
+		# 	# print a&i, b&i
+		# 	# print a&i ^ b&i
+		# 	# bits[i] = a&i ^ b&i
+		# #print bits
+	return a^b
+	#return hexlify(''.join(chr(ord(c1) ^ ord(c2)) for c1, c2 in zip(unhexlify(a[-len(b):]), unhexlify(b))))
 
 #generate tables
 def generateExponentials():
@@ -30,17 +39,17 @@ def multiply(a, b, expos, logs):
 	t = logs[a] + logs[b]
 	if t > 255:
 		t = t-255
-	return hex(expos[t])
+	return expos[t]
 
 def inverse(a, inverses):
 	if a == 0:
 		return None
-	return hex(inverses[a])
+	return inverses[a]
 
 def tests():
 	#addition
-	test1 = 'b1'
-	test2 = '30'
+	test1 = int('0x01',0)
+	test2 = int('0x10',0)
 	print add(test1, test2)
 
 	#multiplication and inverses
@@ -50,7 +59,9 @@ def tests():
 
 	a = int('0xb6',0)
 	b = int('0x53',0)
-	print multiply(a, b, e, l)
+	print hex(multiply(a, b, e, l))
 
 	a = int('0x6b',0)
-	print inverse(a, i)
+	print hex(inverse(a, i))
+
+tests()
