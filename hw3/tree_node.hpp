@@ -1,6 +1,5 @@
 #ifndef TREE_NODE_HPP
 #define TREE_NODE_HPP
-using namespace std;
 
 class Tree_node{
 public:

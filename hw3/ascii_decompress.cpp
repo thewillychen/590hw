@@ -6,9 +6,7 @@
 using namespace std;
 
 Tree_node* create_root(){
-	Tree_node* root = new Tree_node();
-	root->label = 0;
-	root->byte = NULL;
+	Tree_node* root = new Tree_node(0,0);
 	root->first_child = NULL;
 	root->sibling = NULL;
 	root->parent = NULL;
@@ -18,7 +16,7 @@ Tree_node* create_root(){
 
 void decompress(Tree_node* root, vector<Tree_node*> nodes){
 	Tree_node* current = root;
-	labelCount = 0;
+	int labelCount = 0;
 	int label;
 	char junk;
 	char c;
@@ -32,7 +30,7 @@ void decompress(Tree_node* root, vector<Tree_node*> nodes){
 		print_path(current);
 		labelCount = labelCount+1;
 		if(cin.peek() != EOF){
-			child = insert_child(current, c, labelCount);
+			Tree_node* child = insert_child(current, c, labelCount);
 			nodes.push_back(child);
 			cout << c;
 		}
@@ -40,7 +38,7 @@ void decompress(Tree_node* root, vector<Tree_node*> nodes){
 }
 
 int main(int argc, char ** argv){
-	root = create_root();
+	Tree_node* root = create_root();
 	vector<Tree_node*> nodes;
 	nodes.push_back(root);
 	decompress(root, nodes);
