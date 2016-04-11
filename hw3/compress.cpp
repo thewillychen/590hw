@@ -16,7 +16,7 @@ Tree_node* create_root(){
 	return root;
 }
 
-void compress(Tree_node* root, int maxLabel){
+void compress(Tree_node* root){
 	Tree_node* current = root;
 	int labelCount = 0;
 	while(cin.peek() != EOF){
@@ -24,8 +24,7 @@ void compress(Tree_node* root, int maxLabel){
 		cin.get(c);
 		Tree_node* child = find_child(current, c);
 		if(child == NULL){
-			maxLabel = labelCount;
-			print_label(current->label, maxLabel);
+			print_label(current->label, labelCount);
 			print_letter(c);
 
 			labelCount = labelCount+1;
@@ -42,6 +41,6 @@ void compress(Tree_node* root, int maxLabel){
 int main(int argc, char ** argv){
 	Tree_node* root = create_root();
 	int max = 10;
-	compress(root, max);
+	compress(root);
 	return 0;
 }

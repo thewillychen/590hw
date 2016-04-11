@@ -16,7 +16,7 @@ Tree_node* create_root(){
 	return root;
 }
 
-void decompress(Tree_node* root, vector<Tree_node*> nodes, int maxLabel){
+void decompress(Tree_node* root, vector<Tree_node*> nodes){
 	Tree_node* current = root;
 	int labelCount = 0;
 	int label;
@@ -26,11 +26,14 @@ void decompress(Tree_node* root, vector<Tree_node*> nodes, int maxLabel){
 		Tree_node* current = nodes[label];
 		print_path(current);
 		labelCount = labelCount+1;
-		if(cin.peek() != EOF){
-			Tree_node* child = insert_child(current, c, labelCount);
-			nodes.push_back(child);
-			cout << c;
-		}
+		Tree_node* child = insert_child(current, c, labelCount);
+		nodes.push_back(child);
+		cout << c;
+	}
+
+	if(label != -1){
+		Tree_node* cur = nodes[label];
+		print_path(cur);
 	}
 }
 
@@ -38,7 +41,6 @@ int main(int argc, char ** argv){
 	Tree_node* root = create_root();
 	vector<Tree_node*> nodes;
 	nodes.push_back(root);
-	int maxLabel = 10;
-	decompress(root, nodes, maxLabel);
+	decompress(root, nodes);
 	return 0;
 }
