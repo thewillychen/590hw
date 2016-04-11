@@ -24,6 +24,7 @@ void compress(Tree_node* root, int maxLabel){
 		cin.get(c);
 		Tree_node* child = find_child(current, c);
 		if(child == NULL){
+			maxLabel = labelCount;
 			print_label(current->label, maxLabel);
 			print_letter(c);
 
@@ -35,7 +36,7 @@ void compress(Tree_node* root, int maxLabel){
 			current = child;
 		}
 	}
-	print_final_label(current->label, maxLabel);
+	print_final_label(current->label, labelCount);
 }
 
 int main(int argc, char ** argv){
