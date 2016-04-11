@@ -16,51 +16,33 @@ Tree_node* create_root(){
 	return root;
 }
 
-void decompress(string line, Tree_node* root, vector<Tree_node*> nodes){
+void decompress(Tree_node* root, vector<Tree_node*> nodes){
 	Tree_node* current = root;
+	labelCount = 0;
+	int label;
+	char junk;
+	char c;
 
-	for(int i =0; i <line.length();i++){ //iterate over characters in the string
-		//get label somehow
-		int label = something;
+	while(cin.peek() != EOF){
+		cin >> label;
+		cin.get(junk);
+		cin.get(c);
+
 		Tree_node* current = nodes[label];
 		print_path(current);
-		char nextByte = more parsing stuff;
 		labelCount = labelCount+1;
-		insert_child(current, nextByte, labelCount);
-		cout << nextByte;
-
-
-		char c = line[i]; 
-
-
-		child = find_child(current, c);
-		if(child == NULL){
-			cout << current->label << " ";
-			cout.put(c);
-
-			insert_child(current,c,current->label+1);
-			current = root;
-		}
-		else{
-			current = child;
+		if(cin.peek() != EOF){
+			child = insert_child(current, c, labelCount);
+			nodes.push_back(child);
+			cout << c;
 		}
 	}
-	cout << current->label << "\n";
 }
 
 int main(int argc, char ** argv){
-	ifstream myfile;
-	string line;
 	root = create_root();
 	vector<Tree_node*> nodes;
 	nodes.push_back(root);
-	labelCount =0;
-	myfile.open(argv[1]); //filename
-	if(myfile.is_open()){
-		while (getline(myfile,line)){
-			decompress(line, root, nodes);
-		}
-		myfile.close();
-	}
+	decompress(root, nodes);
 	return 0;
 }
