@@ -1,6 +1,7 @@
 #ifndef TREE_NODE_HPP
 #define TREE_NODE_HPP
 
+//problem 1
 class Tree_node{
 public:
 	Tree_node();

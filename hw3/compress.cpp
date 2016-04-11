@@ -1,8 +1,9 @@
-//Problem 2
+//Problem 3
 #include "tree_node.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "util.c"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ Tree_node* create_root(){
 	return root;
 }
 
-void compress(Tree_node* root){
+void compress(Tree_node* root, int maxLabel){
 	Tree_node* current = root;
 	int labelCount = 0;
 	while(cin.peek() != EOF){
@@ -23,8 +24,8 @@ void compress(Tree_node* root){
 		cin.get(c);
 		Tree_node* child = find_child(current, c);
 		if(child == NULL){
-			cout << current->label << " ";
-			cout.put(c);
+			print_label(current->label, maxLabel);
+			print_letter(c);
 
 			labelCount = labelCount+1;
 			insert_child(current,c,labelCount);
@@ -34,11 +35,12 @@ void compress(Tree_node* root){
 			current = child;
 		}
 	}
-	cout << current->label << "\n";
+	print_final_label(current->label, maxLabel);
 }
 
 int main(int argc, char ** argv){
 	Tree_node* root = create_root();
-	compress(root);
+	int max = 10;
+	compress(root, max);
 	return 0;
 }

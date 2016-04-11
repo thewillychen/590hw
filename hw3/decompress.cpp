@@ -1,9 +1,11 @@
-//Problem 2
+//Problem 3
 #include "tree_node.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
+#include "util.c"
+
 using namespace std;
 
 Tree_node* create_root(){
@@ -15,18 +17,13 @@ Tree_node* create_root(){
 	return root;
 }
 
-void decompress(Tree_node* root, vector<Tree_node*> nodes){
+void decompress(Tree_node* root, vector<Tree_node*> nodes, int maxLabel){
 	Tree_node* current = root;
 	int labelCount = 0;
 	int label;
-	char junk;
 	char c;
 
-	while(cin.peek() != EOF){
-		cin >> label;
-		cin.get(junk);
-		cin.get(c);
-
+	while((label = read_label(maxLabel)) != -1 && read_letter(&c)){
 		Tree_node* current = nodes[label];
 		print_path(current);
 		labelCount = labelCount+1;
@@ -42,6 +39,7 @@ int main(int argc, char ** argv){
 	Tree_node* root = create_root();
 	vector<Tree_node*> nodes;
 	nodes.push_back(root);
-	decompress(root, nodes);
+	int maxLabel = 10;
+	decompress(root, nodes, maxLabel);
 	return 0;
 }

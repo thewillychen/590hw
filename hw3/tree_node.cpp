@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 
+//problem 1
 Tree_node* find_child(Tree_node *parent, char c){
 	Tree_node *current = parent->first_child;
 	while(current != NULL){
