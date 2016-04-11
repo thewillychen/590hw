@@ -22,7 +22,7 @@ void decompress(Tree_node* root, vector<Tree_node*> nodes, int maxLabel){
 	int label;
 	char c;
 
-	while((label = read_label(maxLabel)) != -1 && read_letter(c)){
+	while((label = read_label(labelCount)) != -1 && read_letter(c)){
 		Tree_node* current = nodes[label];
 		print_path(current);
 		labelCount = labelCount+1;
