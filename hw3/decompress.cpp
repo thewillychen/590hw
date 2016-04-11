@@ -1,12 +1,11 @@
 //Problem 3
 #include "tree_node.hpp"
-#include <iostream>
-#include <fstream>
 #include <string>
 #include <vector>
 #include "util.c"
 
 using namespace std;
+
 
 Tree_node* create_root(){
 	Tree_node* root = new Tree_node(0,0);
@@ -23,7 +22,7 @@ void decompress(Tree_node* root, vector<Tree_node*> nodes, int maxLabel){
 	int label;
 	char c;
 
-	while((label = read_label(maxLabel)) != -1 && read_letter(&c)){
+	while((label = read_label(maxLabel)) != -1 && read_letter(c)){
 		Tree_node* current = nodes[label];
 		print_path(current);
 		labelCount = labelCount+1;
