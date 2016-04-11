@@ -8,18 +8,19 @@ Tree_node* create_root(){
 	Tree_node* root = new Tree_node();
 	root->label = 0;
 	root->byte = NULL;
-	root->first_child = NULL;
-	root->sibling = NULL;
-	root->parent = NULL;
+	root->first_child = (Tree_node*)NULL;
+	root->sibling = (Tree_node*)NULL;
+	root->parent = (Tree_node*)NULL;
 
 	return root;
 }
 
-void compress(string line, Tree_node* root){
+void compress(Tree_node* root){
 	Tree_node* current = root;
 
-	for(int i =0; i <line.length();i++){ //iterate over characters in the string
-		char c = line[i];
+	while(cin.peek() != EOF){
+		char c;
+		cin.get(c);
 		child = find_child(current, c);
 		if(child == NULL){
 			cout << current->label << " ";
@@ -36,15 +37,7 @@ void compress(string line, Tree_node* root){
 }
 
 int main(int argc, char ** argv){
-	ifstream myfile;
-	string line;
 	root = create_root();
-	myfile.open(argv[1]); //filename
-	if(myfile.is_open()){
-		while (getline(myfile,line)){
-			compress(line, root);
-		}
-		myfile.close();
-	}
+	compress(root);
 	return 0;
 }
